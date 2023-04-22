@@ -1,6 +1,9 @@
-# Projet ANC3 2223 - Farming
+# Desktop Farming Game
 
-## Notes de version itération 3 
+## Technologies used
+* Java
+* JavaFX
 
-### Bugs connus
-* récolter un cabbage stade 4 et rotten sur du gazon n'a pas d'effet sur le score
+## Architechture
+* MVVM
+* Bindings
