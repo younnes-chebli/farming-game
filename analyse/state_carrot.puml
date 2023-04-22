@@ -1,0 +1,18 @@
+@startuml
+
+[*] --> State1 : Carrot
+State1 --> [*] : harvest
+
+State1 -> State2 : grow
+State2 --> [*] : harvest
+
+State2 -> State3 : grow
+State3 --> [*] : harvest
+
+State3 -> State4 : grow
+State4 --> [*] : harvest
+
+State4 -> Rotten : grow
+Rotten --> [*] : harvest
+
+@enduml

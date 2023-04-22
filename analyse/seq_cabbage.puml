@@ -1,0 +1,9 @@
+@startuml
+Cabbage -> State1 : initial
+
+State1 -> State2 : grow
+State2 -> State3 : grow
+State3 -> State4 : grow
+State4 -> Rotten : grow
+
+@enduml

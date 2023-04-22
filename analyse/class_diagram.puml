@@ -1,0 +1,282 @@
+@startuml
+
+package app {
+    class FarmApp {
+        void start(Stage stage)
+    }
+}
+
+package view {
+    class FarmView {
+        FarmView(Stage stage)
+        void start(Stage stage)
+    }
+
+    class FieldView {
+        FieldView(FieldViewModel fieldViewModel)
+    }
+
+    class FooterView {
+        FooterView(FarmView farmView, FooterViewModel footerViewModel)
+    }
+
+    class HeaderView {
+        HeaderView(HeaderViewModel headerViewModel)
+    }
+
+    class ParcelView {
+        ParcelView(ParcelViewModel parcelViewModel)
+    }
+}
+
+package viewmodel {
+    class FarmViewModel {
+        void moveUp()
+        void moveDown()
+        void moveLeft()
+        void moveRight()
+        void actOnFarm()
+    }
+
+    class FieldViewModel {
+        void teleportFarmer(int line, int col)
+
+        ReadOnlyBooleanProperty isStartedProperty()
+    }
+
+    class FooterViewModel {
+        void play()
+        void stop()
+        void sleep()
+        void enablePlantingMode()
+        void enablePlantingCarrotMode()
+        void enablePlantingCabbageMode()
+        void enableHarvestMode()
+        void enableFertilizeMode()
+
+        ReadOnlyBooleanProperty isStartedProperty()
+    }
+
+    class HeaderViewModel {
+        ReadOnlyIntegerProperty scoreProperty()
+        ReadOnlyIntegerProperty dayProperty()
+    }
+
+    class ParcelViewModel {
+        SimpleListProperty<Item> itemListProperty()
+        ReadOnlyIntegerProperty dayProperty()
+    }
+}
+
+package model {
+    class ActualStateEnum {
+        GRASS,
+        CARROT_1,
+        CARROT_2,
+        CARROT_3,
+        CARROT_4,
+        CARROT_ROTTEN,
+        CABBAGE_1,
+        CABBAGE_2,
+        CABBAGE_3,
+        CABBAGE_4,
+        CABBAGE_ROTTEN
+    }
+
+    class Cabbage extends Vegetable {
+
+    }
+
+    class CabbageRotten implements State {
+
+    }
+
+    class CabbageStateFour implements State {
+
+    }
+
+    class CabbageStateOne implements State {
+
+    }
+
+    class CabbageStateThree implements State {
+
+    }
+
+    class CabbageStateTwo implements State {
+
+    }
+
+    class Carrot extends Vegetable {
+
+    }
+
+    class CarrotRotten implements State {
+
+    }
+
+    class CarrotStateFour implements State {
+
+    }
+
+    class CarrotStateOne implements State {
+
+    }
+
+    class CarrotStateThree implements State {
+
+    }
+
+    class CarrotStateTwo implements State {
+
+    }
+
+    class Farmer extends Item {
+        void moveUp()
+        void moveDown()
+        void moveLeft()
+        void moveRight()
+        void teleport(int line, int col)
+        void plantGrass()
+        void plantCarrot()
+        void plantCabbage()
+        void harvest()
+        void fertilize()
+    }
+
+    class Field {
+        void removeAll()
+        double growAll()
+
+        SimpleListProperty<Item> itemListProperty(int line, int col)
+    }
+
+    class GameFacade {
+        void start()
+        void stop()
+        void sleep()
+        void teleportFarmer(int line, int col)
+        void enablePlantingMode()
+        void enablePlantingCarrotMode()
+        void enablePlantingCabbageMode()
+        void enableHarvestMode()
+        void enableFertilizeMode()
+        void moveUp()
+        void moveDown()
+        void moveLeft()
+        void moveRight()
+        void plantGrass()
+        void plantCarrot()
+        void plantCabbage()
+        void harvest()
+        void fertilize()
+
+        SimpleListProperty<Item> itemListProperty(int line, int col)
+        ReadOnlyBooleanProperty isStartedProperty()
+        ReadOnlyObjectProperty<Mode> modeProperty()
+        ReadOnlyIntegerProperty scoreProperty()
+        ReadOnlyIntegerProperty dayProperty()
+    }
+
+    class GameStatus {
+            STARTED
+            NOT_STARTED
+    }
+
+    class Grass extends Item {
+
+    }
+
+    class GrassState extends State {
+    }
+
+    interface State {
+        double grow(int day)
+        void fertilize()
+        double harvest(int day)
+    }
+
+    abstract class Item {
+        boolean isFarmer()
+        boolean isGrass()
+        boolean isVegetable()
+        boolean isCarrot()
+        boolean isCabbage()
+        boolean isDead()
+        double grow()
+    }
+
+    class Mode {
+        PLANTING,
+        PLANTING_CARROT,
+        PLANTING_CABBAGE,
+        HARVEST,
+        FERTILIZE,
+        NONE;
+    }
+
+    class Parcel {
+        void move(int line, int col)
+        void removeItem(Item item)
+        void addItem(Item item)
+        void removeAll()
+        double grow(int day)
+        double harvest(int day)
+        void fertilize()
+        void plantGrass(Grass grass)
+        void plantCarrot(Carrot carrot)
+        void plantCabbage(Cabbage cabbage)
+
+        SimpleListProperty<Item> itemListProperty()
+    }
+
+    class Vegetable extends Item {
+        void harvest()
+
+        public ReadOnlyObjectProperty<ActualStateEnum> actualStateEnumProperty()
+    }
+}
+
+FarmApp -- "1" FarmView
+
+FarmView "1" -- "1"FarmViewModel
+FarmView "1" -- "1" HeaderView
+FarmView "1" -- "1" FieldView
+FarmView "1" -- "1" FooterView
+
+FieldView "1" -- "1" ParcelView
+
+FooterView "1" -- "1" FooterViewModel
+
+HeaderView "1" -- "1" HeaderViewModel
+
+FarmViewModel "1" -- "1" HeaderViewModel
+FarmViewModel "1" -- "1" FieldViewModel
+FarmViewModel "1" -- "1" FooterViewModel
+FarmViewModel -- GameFacade
+
+FieldViewModel -- GameFacade
+FieldViewModel "1" -- "1" ParcelViewModel
+
+FooterViewModel -- GameFacade
+
+HeaderViewModel -- GameFacade
+
+ParcelViewModel -- GameFacade
+
+Cabbage "1" -- "1" State
+
+Carrot "1" -- "1" State
+
+Field "1" -- "15 X 25" Parcel
+
+GameFacade -- "1" Farmer
+GameFacade -- "1" Field
+
+Item -- GameFacade
+
+Parcel "1" -- "*" Item
+
+Vegetable "1" -- "1" State
+Vegetable "1" -- "1" ActualStateEnum
+@enduml

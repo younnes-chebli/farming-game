@@ -1,0 +1,56 @@
+@startuml
+
+Farm *--r "1" Field
+Field *-- "LENGTH * WIDTH" Parcel
+Parcel *-- "1 .. *" Item
+Item <|-- Farmer
+Item <|-- Grass
+Item <|-- Dirt
+Item <|-- Vegetable
+Vegetable <|-- Carott
+Vegetable <|-- Cabbage
+
+class Farm {
+    play()
+    stop()
+}
+
+class Field {
+    LENGTH
+    WIDTH
+}
+
+class Parcel {
+
+}
+
+abstract class Item {
+
+}
+
+abstract class Vegetable {
+}
+
+class Carott {
+
+}
+
+class Cabbage {
+
+}
+
+class Farmer {
+    move()
+    plantGrass()
+    removeGrass()
+}
+
+class Grass {
+
+}
+
+class Dirt {
+
+}
+
+@enduml
