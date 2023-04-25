@@ -52,11 +52,13 @@ public class FooterView extends HBox {
         });
 
         for (Toggle toggle : toggleGroup.getToggles()) {
-            ((ToggleButton) toggle).focusedProperty().addListener(e -> {
+            ToggleButton toggleButton = (ToggleButton) toggle;
+
+            toggleButton.focusedProperty().addListener(e -> {
                 farmview.requestFocus();
             });
 
-            ((ToggleButton) toggle).disableProperty().bind(footerViewModel.isStartedProperty().not());
+            toggleButton.disableProperty().bind(footerViewModel.isStartedProperty().not());
         }
     }
 
