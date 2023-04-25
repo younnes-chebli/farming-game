@@ -3,6 +3,7 @@ package eu.epfc.anc3.view;
 import eu.epfc.anc3.vm.FooterViewModel;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
@@ -49,26 +50,14 @@ public class FooterView extends HBox {
         sleepButton.focusedProperty().addListener(e -> {
             farmview.requestFocus();
         });
-        plantGrassButton.disableProperty().bind(footerViewModel.isStartedProperty().not());
-        plantGrassButton.focusedProperty().addListener(e -> {
-            farmview.requestFocus();
-        });
-        plantCarrotButton.disableProperty().bind(footerViewModel.isStartedProperty().not());
-        plantCarrotButton.focusedProperty().addListener(e -> {
-            farmview.requestFocus();
-        });
-        plantCabbageButton.disableProperty().bind(footerViewModel.isStartedProperty().not());
-        plantCabbageButton.focusedProperty().addListener(e -> {
-            farmview.requestFocus();
-        });
-        fertilizeButton.disableProperty().bind(footerViewModel.isStartedProperty().not());
-        fertilizeButton.focusedProperty().addListener(e -> {
-            farmview.requestFocus();
-        });
-        harvestButton.disableProperty().bind(footerViewModel.isStartedProperty().not());
-        harvestButton.focusedProperty().addListener(e -> {
-            farmview.requestFocus();
-        });
+
+        for (Toggle toggle : toggleGroup.getToggles()) {
+            ((ToggleButton) toggle).focusedProperty().addListener(e -> {
+                farmview.requestFocus();
+            });
+
+            ((ToggleButton) toggle).disableProperty().bind(footerViewModel.isStartedProperty().not());
+        }
     }
 
     private void configMenu() {
