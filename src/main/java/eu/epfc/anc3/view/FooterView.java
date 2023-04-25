@@ -47,6 +47,7 @@ public class FooterView extends HBox {
             farmview.requestFocus();
         });
 
+        sleepButton.disableProperty().bind(footerViewModel.isStartedProperty().not());
         sleepButton.focusedProperty().addListener(e -> {
             farmview.requestFocus();
         });
@@ -57,6 +58,9 @@ public class FooterView extends HBox {
             toggleButton.focusedProperty().addListener(e -> {
                 farmview.requestFocus();
             });
+
+//            toggleButton.visibleProperty().bind(footerViewModel.isStartedProperty());
+            toggleButton.disableProperty().bind(footerViewModel.isStartedProperty().not());
         }
     }
 
