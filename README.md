@@ -1,7 +1,5 @@
 # Desktop Farming Game
 
-School Project
-
 ## Technologies used
 * Java
 * JavaFX
